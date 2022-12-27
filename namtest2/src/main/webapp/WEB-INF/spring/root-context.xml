@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+		<bean class="com.zaxxer.hikari.HikariConfig" id="hikariConfig"><!-- => HikariConfig 얘를 객체로 생성하겠다 (= new HikariConfig() )  id에 생성한객체를 저장-->
+			<property name="driverClassName"  value="oracle.jdbc.OracleDriver" />
+			<!--name은 필수입력 driverClassName 는 필드명이라고봄  -->
+		 	<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.10.26:1521:xe" />
+		 	<property name="username" value="kyoungclub" />
+		 	<property name="password" value="kyoungclub" /> 
+		</bean>
+		
+		<bean class="com.zaxxer.hikari.HikariDataSource" id="dataSource" destroy-method="close">
+			<constructor-arg ref="hikariConfig"></constructor-arg>
+		</bean>
+		
+</beans>

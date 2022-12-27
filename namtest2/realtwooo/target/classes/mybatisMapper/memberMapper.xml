@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.namdoll.MemberDAO"><!--namespace 자유긴한데 왠만하면 패키지경로로한느것 추천 -->
+	
+	<!-- 전체 회원정보 반환하는 쿼리문 =>  관리자만 쓸수있음 -->
+	<select id="getList" resultType="MemberVO"> 
+		select * from members
+	</select>
+	<!-- 한사람의 회원 정보를 반환하는 쿼리문 => 회원로그인,수정하고자 할 때 사용 -->
+	<select id="getMember" resultType="MemberVO" parameterType="String"> <!-- 받아올거니까 파라미터, 문자로 받을거니까 String --> 
+		select * from members where memId = #{memId}
+	</select>
+	
+	<insert id="addMember" parameterType="MemberVO">
+		insert into members values(#{memId},#{memName},#{memPwd},#{phone},sysdate)
+	</insert>
+	
+	<delete id="delMember" parameterType="String">
+		delete from members where memId = #{memId}
+	</delete>
+	
+</mapper>

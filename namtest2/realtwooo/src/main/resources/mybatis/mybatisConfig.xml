@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+  	<typeAliases>
+  		<typeAlias type="kr.co.namdoll.vo.MemberVO" alias="MemberVO"/> 
+  		<typeAlias type="kr.co.namdoll.vo.BoardVO" alias="BoardVO"/>  
+  	</typeAliases>
+  </configuration> <!-- 여기 아무것도없이..<configuration> 이것도없으면 에러남 (예기치못한 뭐시기....)  -->

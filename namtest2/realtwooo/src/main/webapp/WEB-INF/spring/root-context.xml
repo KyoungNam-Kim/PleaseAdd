@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+	<bean class="com.zaxxer.hikari.HikariConfig" id="hikariConfig" >
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.10.24:1521:xe" />
+		<property name="username" value="kyoungclub" />
+		<property name="password" value="kyoungclub" />
+	</bean>
+	
+	<bean class="com.zaxxer.hikari.HikariDataSource" id="dataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig" /><!-- 생성자를통해 주입받음 -->
+	</bean>
+	
+	<!--  마이바티스쓰니까 주석처리
+	<bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+	-->
+
+  	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis/mybatisConfig.xml" />
+		<property name="mapperLocations">
+			<list> 
+				<value>classpath:mybatisMapper/memberMapper.xml</value> 
+				<!-- <value>classpath:mybatisMapper/BoardMapper.xml</value>  -->  
+			</list>  
+		</property>
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession" >
+		<constructor-arg ref="sqlSessionFactoryBean" />
+	</bean>
+ 
+	<!-- namespaces에서 context 추가해야함 -->
+	<context:component-scan base-package="kr.co.namdoll" /> <!-- 어노테이션 스캐닝할수있게하는것 (@component, Repository .....) -->
+   
+ </beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
